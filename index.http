@@ -1,0 +1,144 @@
+### User Registration
+POST http://localhost:3000/api/user/register
+Content-Type: application/json
+
+{
+  "email": "pablormd2004@gmail.com",
+  "password": "miclave12345"
+}
+
+### Code Verification
+PUT http://localhost:3000/api/user/validation
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjIzYzQ3YjI2MTUyZjhkNTA4OGM5MSIsImVtYWlsIjoiZmluYWwxQHRlc3QuY29tIiwiaWF0IjoxNzQ3MDc0MTE5LCJleHAiOjE3NDc2Nzg5MTl9.nFVfmvvwkwA0iEN5lMITjx1PTPqaPS2TJvBa4DKL1Eg
+
+{
+  "code": "313283"
+}
+
+### User Login
+POST http://localhost:3000/api/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "final1@test.com",
+  "password": "miclave12345"
+}
+
+### Update Personal Information (Onboarding)
+PUT http://localhost:3000/api/user/onboarding
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjIzYzQ3YjI2MTUyZjhkNTA4OGM5MSIsImVtYWlsIjoiZmluYWwxQHRlc3QuY29tIiwiaWF0IjoxNzQ3MDc2NDA1LCJleHAiOjE3NDc2ODEyMDV9.vtIoT9w1Iuut7Q-jGagJbG4s5AoaHKSLDEJPevwR6Ao
+
+{
+  "firstName": "TEST",
+  "lastName": "FINAL",
+  "nif": "987654321Z"
+}
+
+### Update Company Information
+PATCH http://localhost:3000/api/user/company HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjIzYzQ3YjI2MTUyZjhkNTA4OGM5MSIsImVtYWlsIjoiZmluYWwxQHRlc3QuY29tIiwiaWF0IjoxNzQ3MDc2NDA1LCJleHAiOjE3NDc2ODEyMDV9.vtIoT9w1Iuut7Q-jGagJbG4s5AoaHKSLDEJPevwR6Ao
+
+{
+  "company": {
+    "companyName": "FINAL COMPANY S.L.",
+    "companyCif": "B97654321",
+    "companyAddress": "Final Street, 123",
+    "companyStreet": "FINAL V",
+    "companyNumber": 33,
+    "companyPostal": 28040,
+    "companyCity": "Madrid",
+    "companyProvince": "Madrid",
+    "isAutonomous": false
+  }
+}
+
+### Update Company Information for Freelancer
+PATCH http://localhost:3000/api/user/company HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjIzYzQ3YjI2MTUyZjhkNTA4OGM5MSIsImVtYWlsIjoiZmluYWwxQHRlc3QuY29tIiwiaWF0IjoxNzQ3MDc2NDA1LCJleHAiOjE3NDc2ODEyMDV9.vtIoT9w1Iuut7Q-jGagJbG4s5AoaHKSLDEJPevwR6Ao
+
+{
+  "company": {
+    "companyName": "FINAL COMPANY S.L.",
+    "companyCif": "B97654321",
+    "companyAddress": "Final Street, 123",
+    "companyStreet": "FINAL V",
+    "companyNumber": 33,
+    "companyPostal": 28040,
+    "companyCity": "Madrid",
+    "companyProvince": "Madrid",
+    "isAutonomous": true
+  }
+}
+
+### Upload Logo to IPFS
+PATCH http://localhost:3000/api/user/logo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjIzYzQ3YjI2MTUyZjhkNTA4OGM5MSIsImVtYWlsIjoiZmluYWwxQHRlc3QuY29tIiwiaWF0IjoxNzQ3MDc2NDA1LCJleHAiOjE3NDc2ODEyMDV9.vtIoT9w1Iuut7Q-jGagJbG4s5AoaHKSLDEJPevwR6Ao
+
+--boundary123
+Content-Disposition: form-data; name="logo"; filename="fondo.jpg"
+Content-Type: image/jpeg
+
+< ./1.jpeg
+--boundary123--
+
+### Get User from Token
+GET http://localhost:3000/api/user/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MjIzYzQ3YjI2MTUyZjhkNTA4OGM5MSIsImVtYWlsIjoiZmluYWwxQHRlc3QuY29tIiwiaWF0IjoxNzQ3MDc2NDA1LCJleHAiOjE3NDc2ODEyMDV9.vtIoT9w1Iuut7Q-jGagJbG4s5AoaHKSLDEJPevwR6Ao
+
+### Soft delete (deactivate user)
+DELETE http://localhost:3000/api/user/delete?soft=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc1YmM3OGYwZTZjOWVhM2UwZDliYiIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGFAZ21haWwuY29tIiwiaWF0IjoxNzQ2MzYxNTEzLCJleHAiOjE3NDY5NjYzMTN9.0M9FhBNTcJrzwQXrEODhLhEvvIDzHbE0q1RzfUIi-D4
+
+### Hard delete (permanently delete)
+DELETE http://localhost:3000/api/user/delete?soft=false
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTUyMTg0ZjcwZGI0ZDM4NjQ1MDU5ZiIsImVtYWlsIjoidXN1YXJpbzQxQGVqZW1wbG8uY29tIiwiaWF0IjoxNzQzNDE4ODkxLCJleHAiOjE3NDQwMjM2OTF9.AcooMy0VkQypT-bnGrEp8IA8T9pNXnbOGIW5y9SZUvM
+
+### Send Recovery Code
+POST http://localhost:3000/api/user/recover
+Content-Type: application/json
+
+{
+  "email": "pablormd2004@gmail.com"
+}
+
+### Reset Password
+POST http://localhost:3000/api/user/reset-password
+Content-Type: application/json
+
+{
+  "email": "pablormd2004@gmail.com",
+  "code": "430638",
+  "newPassword": "newSecurePassword123"
+}
+
+### Invite Guest User
+POST http://localhost:3000/api/user/invite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZWE3NjllNzBkODkxNmI1ZjI4YTE5ZCIsImVtYWlsIjoiZXN1YXJpbzQ1QGVqZW1wbG8uY29tIiwiaWF0IjoxNzQzNDE5MDM4LCJleHAiOjE3NDQwMjM4Mzh9.6fZP90Nzm2lhhyOEGqx0h42Odw-ZScWZOaS7cL1kJ_8
+Content-Type: application/json
+
+{
+  "email": "guest01@example.com"
+}
+
+### Invite Guest
+POST http://localhost:3000/api/user/invite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTg5ZmMxNjEyZGIyNDkyZDhlYmM0NyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExMTFAZ21haWwuY29tIiwiaWF0IjoxNzQ2NDQ0MjI1LCJleHAiOjE3NDcwNDkwMjV9.aY7Tj7tGRig8QbgwMSy0uTmdl2Gfg48Ffn7LFUGLark
+Content-Type: application/json
+
+{
+  "email": "guest3@example.com"
+}
+
+### Send Email
+POST http://localhost:3000/api/mail
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTg5ZmMxNjEyZGIyNDkyZDhlYmM0NyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExMTFAZ21haWwuY29tIiwiaWF0IjoxNzQ2NDQ0MjI1LCJleHAiOjE3NDcwNDkwMjV9.aY7Tj7tGRig8QbgwMSy0uTmdl2Gfg48Ffn7LFUGLark
+
+{
+  "to": "pabloromadi@gmail.com",
+  "from": "pablormd2004@gmail.com"
+}

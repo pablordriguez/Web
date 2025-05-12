@@ -1,0 +1,77 @@
+### 1. Create client
+POST http://localhost:3000/api/client
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc4NTRjNjg4MzBmYjBkYjcxYjFkNyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExQGdtYWlsLmNvbSIsImlhdCI6MTc0NjM3MTkxNiwiZXhwIjoxNzQ2OTc2NzE2fQ.uby3yIxmVmS9ua65-MQgUmsJkbdYde1PZUnbfPZGL-Y
+Content-Type: application/json
+
+{
+  "name": "Client DeliveryNote 3",
+  "email": "client3@DeliveryNote.com",
+  "phone": "600123557",
+  "address": "Street DeliveryNote, 124"
+}
+
+### 2. Create Project Associated with Client (use the ID from Step 1)
+POST http://localhost:3000/api/project
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc4NTRjNjg4MzBmYjBkYjcxYjFkNyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExQGdtYWlsLmNvbSIsImlhdCI6MTc0NjM3MTkxNiwiZXhwIjoxNzQ2OTc2NzE2fQ.uby3yIxmVmS9ua65-MQgUmsJkbdYde1PZUnbfPZGL-Y
+Content-Type: application/json
+
+{
+  "name": "Download Project 6",
+  "description": "Project to test downloading delivery notes",
+  "client": "6817855b68830fb0db71b1da"
+}
+
+
+### 3. Create Simple Delivery Note (use the ID of the project and client created above)
+POST http://localhost:3000/api/deliverynote
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc4NTRjNjg4MzBmYjBkYjcxYjFkNyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExQGdtYWlsLmNvbSIsImlhdCI6MTc0NjM3MTkxNiwiZXhwIjoxNzQ2OTc2NzE2fQ.uby3yIxmVmS9ua65-MQgUmsJkbdYde1PZUnbfPZGL-Y
+Content-Type: application/json
+
+{
+  "project": "6817854c68830fb0db71b1d7",
+  "client": "6817855b68830fb0db71b1da",
+  "type": "simple",
+  "data": [
+    {
+      "person": "Pablo", 
+      "hours": 11
+    }
+  ]
+}
+
+### 4. Get All Delivery Notes
+GET http://localhost:3000/api/deliverynote
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc4NTRjNjg4MzBmYjBkYjcxYjFkNyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExQGdtYWlsLmNvbSIsImlhdCI6MTc0NjM3MTkxNiwiZXhwIjoxNzQ2OTc2NzE2fQ.uby3yIxmVmS9ua65-MQgUmsJkbdYde1PZUnbfPZGL-Y
+
+### 5. Get a Specific Delivery Note
+GET http://localhost:3000/api/deliverynote/6817870868830fb0db71b20b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc4NTRjNjg4MzBmYjBkYjcxYjFkNyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExQGdtYWlsLmNvbSIsImlhdCI6MTc0NjM3MTkxNiwiZXhwIjoxNzQ2OTc2NzE2fQ.uby3yIxmVmS9ua65-MQgUmsJkbdYde1PZUnbfPZGL-Y
+
+### 6. Download PDF of the Delivery Note
+GET http://localhost:3000/api/deliverynote/pdf/6817870868830fb0db71b20b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MTc4NTRjNjg4MzBmYjBkYjcxYjFkNyIsImVtYWlsIjoiYWRyaWFucGF6b3N2YXJlbGExQGdtYWlsLmNvbSIsImlhdCI6MTc0NjM3MTkxNiwiZXhwIjoxNzQ2OTc2NzE2fQ.uby3yIxmVmS9ua65-MQgUmsJkbdYde1PZUnbfPZGL-Y
+
+### Sign the Delivery Note (upload signature image to IPFS and mark as signed)
+POST http://localhost:3000/api/deliverynote/sign/68017b62d6492f4923d036cc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmZiZTMxNGQ0Zjk0MzMzYTc0Y2UwYiIsImVtYWlsIjoicGF6b3N2YXJlbGFhQGdtYWlsLmNvbSIsImlhdCI6MTc0NDgxMzYxNywiZXhwIjoxNzQ1NDE4NDE3fQ.gS-7oQQgswSogRUHRXeXcfAHiR5YcZUMCbw-QHJvaVs
+Content-Type: multipart/form-data; boundary=boundary123
+
+--boundary123
+Content-Disposition: form-data; name="signature"; filename="firma.jpg"
+Content-Type: image/jpeg
+
+< ./1.jpeg
+--boundary123--
+
+
+### 7.1 Verify that the Delivery Note has the uploaded PDF
+GET http://localhost:3000/api/deliverynote/68017b62d6492f4923d036cc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmZiZTMxNGQ0Zjk0MzMzYTc0Y2UwYiIsImVtYWlsIjoicGF6b3N2YXJlbGFhQGdtYWlsLmNvbSIsImlhdCI6MTc0NDgxMzYxNywiZXhwIjoxNzQ1NDE4NDE3fQ.gS-7oQQgswSogRUHRXeXcfAHiR5YcZUMCbw-QHJvaVs
+
+### 7.2 Retry downloading PDF (redirects to IPFS if signed)
+GET http://localhost:3000/api/deliverynote/pdf/68017b62d6492f4923d036cc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmZiZTMxNGQ0Zjk0MzMzYTc0Y2UwYiIsImVtYWlsIjoicGF6b3N2YXJlbGFhQGdtYWlsLmNvbSIsImlhdCI6MTc0NDgxMzYxNywiZXhwIjoxNzQ1NDE4NDE3fQ.gS-7oQQgswSogRUHRXeXcfAHiR5YcZUMCbw-QHJvaVs
+
+### 8. Delete Delivery Note (only if not signed)
+DELETE http://localhost:3000/api/deliverynote/68002ba77a6ae3f42e7bf40d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmZiZTMxNGQ0Zjk0MzMzYTc0Y2UwYiIsImVtYWlsIjoicGF6b3N2YXJlbGFhQGdtYWlsLmNvbSIsImlhdCI6MTc0NDgxMzYxNywiZXhwIjoxNzQ1NDE4NDE3fQ.gS-7oQQgswSogRUHRXeXcfAHiR5YcZUMCbw-QHJvaVs
